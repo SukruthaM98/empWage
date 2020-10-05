@@ -10,12 +10,38 @@ else
 	echo"employee is absent"
 fi
 
-EmployeeHours=8
+EmployeeFullTimeHours=8
+EmployeePartTimeHours=4
 EmployeeWagePerHr=20
 
 if [ $attendance -eq 1 ]
 then
-	salary=$(($EmployeeHours*$EmployeeWagePerHr));
+	salary=$(($EmployeeFullTimeHours*$EmployeeWagePerHr));
+	echo "Employee FullTime salary :"$salary
 else
 	salary=0
+	echo " Employee is absent"
+fi
+
+if [ $attendance -eq 1 ]
+then
+	isFullTime=1
+	isPartTime=2
+	employeeCheck=$((RANDOM%3))
+
+	if [ $employeeCheck -eq $isFullTime ]
+	then
+		salary=$(( $EmployeeFullTimeHours*$EmployeeWagePerHr ))
+		echo " FullTime employee salary is :" $salary
+	elif [ $employeeCheck -eq $isPartTime ]
+	then
+		salary=$(( $EmployeePartTimeHours*$EmployeeWagePerHr ))
+		echo " PartTime employee salary is: " $salary
+	else
+		salary=0
+		echo "Employee is absent"
+	fi
+else
+	salary=0
+	echo " employee is absent"
 fi
