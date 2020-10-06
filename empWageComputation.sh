@@ -13,15 +13,24 @@ fi
 isPartTime=1;
 isFullTime=2;
 empRatePerHr=20;
-empCheck=$((RANDOM%3));
+NumOfWorkingDays=20;
+totalSalary=0;
 
-case $empCheck in
-	$isFullTime)
-		empHrs=8 ;;
-	$isPartTime)
-		empHrs=4;;
-	*)
-		empHrs=0 ;;
-esac
+for (( day=1; day<=$NumOfWorkingDays; day++ ))
+do
+	empCheck=$((RANDOM%3));
 
-salary=$(($empHrs*$empRatePerHr));
+	case $empCheck in
+		$isFullTime)
+			empHrs=8 ;;
+		$isPartTime)
+			empHrs=4;;
+		*)
+			empHrs=0 ;;
+	esac
+salary=$(( $empHrs*$empRatePerHr ));
+totalSalary=$(( $totalSalary+$salary ));
+done
+
+echo $totalSalary "is the total salary"
+
