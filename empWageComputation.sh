@@ -32,5 +32,5 @@ salary=$(( $empHrs*$empRatePerHr ));
 totalSalary=$(( $totalSalary+$salary ));
 done
 
-echo $totalSalary "is the total salary"
+echo $totalSalary "is the total salary of the employee for a month"
 
