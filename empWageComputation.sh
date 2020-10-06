@@ -44,9 +44,10 @@ do
         ((totalWorkingDays++))
         empHrs="$( getWorkingHours $((RANDOM%3)) )"
         totalEmpHr=$(($totalEmpHr+$empHrs))
-        empDailyWage[$totalWorkingDays]="$( caclDailyWage $empHrs )"
+        empDailyWage["$totalWorkingDays"]="$( caclDailyWage $empHrs )"
 done
 
 totalsalary="$( caclDailyWage $totalEmpHr )"
 echo "daily wage" ${empDailyWage[@]}
+echo "all days" ${!empDailyWage[@]}
 
