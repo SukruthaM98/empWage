@@ -1,4 +1,4 @@
-#!/bin/bash -x 
+#!/bin/bash -x
 
 echo "welcome to employee wage computation"
 
@@ -13,28 +13,32 @@ fi
 isPartTime=1;
 isFullTime=2;
 maxHrsInMonth=100;
-empRateperHr=20;
+empRateperHer=20;
 numWorkingDays=20;
 
 totalEmpHr=0
 totalWorkingDays=0
 
+function getWorkingHours ( ) {
+
+	case $1 in
+		$isFullTime)
+			empHrs=8 ;;
+                $isPartTime)
+                        empHrs=4 ;;
+                *)
+                        empHrs=0 ;;
+         esac
+                echo $empHrs
+}
+
 while [[ $totalEmpHr -lt $maxHrsInMonth && $totalWorkingDays -lt $numWorkingDays ]]
 do
-	((totalWorkingDays++))
-	empCheck=$(( RANDOM%3 ))
-		case $empCheck in
-			$isFullTime)
-				empHrs=8 ;;
-			$isPartTime)
-				empHrs=4 ;;
-			*)
-				empHrs=0 ;;
-		esac
-		totalEmpHr=$(( $empHrs+$totalEmpHr ))
+        ((totalWorkingDays++))
+	empHrs="$( getWorkingHours $((RANDOM%3)) )"
+	totalEmpHr=$(($totalEmpHr+$empHrs))
 
 done
 
-totalsalary=$(( $totalEmpHr*$empRateperHr ))
-echo $totalsalary "is the total salary"
-
+totalsalary=$(( $totalEmpHr*$empRateperHer ))
+echo $totalsalary "is the total salary of employee"
