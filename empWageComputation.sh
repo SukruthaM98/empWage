@@ -13,17 +13,17 @@ fi
 isPartTime=1;
 isFullTime=2;
 maxHrsInMonth=100;
-empRateperHer=20;
+empRateperHr=20;
 numWorkingDays=20;
 
 totalEmpHr=0
 totalWorkingDays=0
 
-function getWorkingHours ( ) {
+function getWorkingHours () {
 
-	case $1 in
-		$isFullTime)
-			empHrs=8 ;;
+        case $1 in
+                $isFullTime)
+                        empHrs=8 ;;
                 $isPartTime)
                         empHrs=4 ;;
                 *)
@@ -32,13 +32,21 @@ function getWorkingHours ( ) {
                 echo $empHrs
 }
 
+function caclDailyWage ( ) {
+local empHrs=$1;
+wage=$(($empHrs+$empRateperHr))
+echo $wage
+}
+
+
 while [[ $totalEmpHr -lt $maxHrsInMonth && $totalWorkingDays -lt $numWorkingDays ]]
 do
         ((totalWorkingDays++))
-	empHrs="$( getWorkingHours $((RANDOM%3)) )"
-	totalEmpHr=$(($totalEmpHr+$empHrs))
-
+        empHrs="$( getWorkingHours $((RANDOM%3)) )"
+        totalEmpHr=$(($totalEmpHr+$empHrs))
+        empDailyWage[$totalWorkingDays]="$( caclDailyWage $empHrs )"
 done
 
-totalsalary=$(( $totalEmpHr*$empRateperHer ))
-echo $totalsalary "is the total salary of employee"
+totalsalary="$( caclDailyWage $totalEmpHr )"
+echo "daily wage" ${empDailyWage[@]}
+
